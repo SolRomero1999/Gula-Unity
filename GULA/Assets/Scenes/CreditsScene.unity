@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.28666663}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 209.36, y: -18.058235}
+  m_AnchoredPosition: {x: 209.36, y: -45}
   m_SizeDelta: {x: 614.2642, y: 305.39975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4967935
@@ -368,7 +368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000095367, y: -192}
+  m_AnchoredPosition: {x: -0.0000095367, y: -244}
   m_SizeDelta: {x: 134.7, y: 52.0328}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &85928188
@@ -1030,7 +1030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00039291, y: -122}
+  m_AnchoredPosition: {x: -0.00039291, y: -175}
   m_SizeDelta: {x: 108.0588, y: 102.2039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &203077889
@@ -1553,7 +1553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00039291, y: 172.38}
+  m_AnchoredPosition: {x: -0.00039291, y: 213}
   m_SizeDelta: {x: 195.5438, y: 105.2348}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &412509770
@@ -2547,8 +2547,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00039005, y: -0.00095922}
-  m_SizeDelta: {x: 800, y: 450}
+  m_AnchoredPosition: {x: -0.00039673, y: -0.0000095367}
+  m_SizeDelta: {x: 1058.2571, y: 656.3249}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1085927802
 MonoBehaviour:
@@ -2641,7 +2641,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2879,7 +2879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0009765625}
+  m_AnchoredPosition: {x: 0, y: -18}
   m_SizeDelta: {x: -465.6797, y: -102.6714}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1555274843
@@ -3266,6 +3266,7 @@ MonoBehaviour:
   - https://www.instagram.com/_milk_ai_
   - https://x.com/Sawkhe99
   - https://github.com/SolRomero1999
+  delayBeforeSceneChange: 0.2
 --- !u!1 &2081047588
 GameObject:
   m_ObjectHideFlags: 0
