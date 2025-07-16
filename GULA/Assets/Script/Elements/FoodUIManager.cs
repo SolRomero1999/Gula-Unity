@@ -275,4 +275,12 @@ public class FoodUIManager : MonoBehaviour
     public bool IsSushiEmpty() => currentSushiLevel >= maxSushiLevel;
     public bool InactivityIsActive() => inactivityActive;
     public float GetInactivityTime() => inactivityTimer;
+
+    public void ResetStomach()
+    {
+        currentStomach = 0f;
+        UpdateStomachBar();
+        streamerVisual?.UpdateVisual(currentStomach, stomachCapacity);
+    }
+
 }

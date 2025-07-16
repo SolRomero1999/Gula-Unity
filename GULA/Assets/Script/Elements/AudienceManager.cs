@@ -13,6 +13,8 @@ public class AudienceManager : MonoBehaviour
     private int currentGoalIndex = 0;
     private int peakViewers = 100;
     public int PeakViewers => peakViewers;
+    public bool IsPaused { get; set; } = false;
+
 
     [Header("UI")]
     public TMP_Text goalText;
@@ -38,6 +40,9 @@ public class AudienceManager : MonoBehaviour
 
     void Update()
     {
+        if (IsPaused)
+            return;
+
         decayTimer += Time.deltaTime;
 
         if (decayTimer >= decayInterval)
@@ -145,4 +150,12 @@ public class AudienceManager : MonoBehaviour
     }
 
     public int CurrentAudience => rating;
+    public void ResetAudience()
+    {
+        rating = 100;
+        peakViewers = 100;
+        currentGoalIndex = 0;
+        UpdateUI();
+    }
+
 }

@@ -7,6 +7,7 @@ using System.Collections;
 public class MainMenuController : MonoBehaviour
 {
     public Button startButton;
+    public Button challengeButton;
     public Button creditsButton;
     public AudioClip menuMusic;
     public AudioClip clickSound;
@@ -31,6 +32,12 @@ public class MainMenuController : MonoBehaviour
             PlayClickSound();
             backgroundMusicInstance.Stop();
             SceneManager.LoadScene("GameScene");
+        });
+        
+        challengeButton.onClick.AddListener(() => {
+            PlayClickSound();
+            backgroundMusicInstance.Stop();
+            SceneManager.LoadScene("Challenge");
         });
 
         creditsButton.onClick.AddListener(() => {

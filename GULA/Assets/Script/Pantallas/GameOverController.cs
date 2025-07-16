@@ -31,7 +31,7 @@ public class GameOverController : MonoBehaviour
         DisplayStats();
 
         mainMenuButton.onClick.AddListener(() => SceneManager.LoadScene("MenuScene"));
-        playAgainButton.onClick.AddListener(() => SceneManager.LoadScene("GameScene"));
+        playAgainButton.onClick.AddListener(() => SceneManager.LoadScene("Challenge"));
     }
 
     void SetBackgroundAndTitle()

@@ -22,10 +22,28 @@ public class GameTimer : MonoBehaviour
 
     void Start()
     {
-        duration = durationInMinutes * 60f;
         SetupButton();
-        StartTimer();
+
+        if (LevelManager.instance != null)
+        {
+            LevelData nivel = LevelManager.instance.niveles[LevelManager.instance.nivelActual];
+            duration = nivel.duracion;
+        }
+        else
+        {
+            duration = durationInMinutes * 60f;
+        }
+
     }
+
+    public void StartTimerManual()
+    {
+        startTime = Time.time;
+        elapsedTime = 0f;
+        isRunning = true;
+        timeUpTriggered = false;
+    }
+
 
     void SetupButton()
     {
@@ -104,7 +122,28 @@ public class GameTimer : MonoBehaviour
         GameStatsManager.totalEarnings -= GameStatsManager.totalExpenses;
 
         GameStatsManager.SaveCurrentStats();
-        SceneManager.LoadScene("GameOver");
+
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            if (LevelManager.instance != null)
+            {
+                LevelManager.instance.TerminarNivel();
+            }
+        }
+        else
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+    }
+    public void ResetTimer(float newDuration)
+    {
+        duration = newDuration;
+        elapsedTime = 0f;
+        isRunning = false;   
+        timeUpTriggered = false;
+
+        if (liveText != null)
+            liveText.text = $"LIVE {FormatTime(duration)}";
     }
 
     public void Cleanup()
