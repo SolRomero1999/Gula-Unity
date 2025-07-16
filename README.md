@@ -30,7 +30,8 @@ En desarrollo.
 ## Enlaces
 
 - [¡Probá el juego en itch.io!](https://sawkhe.itch.io/gula)  
-- [También podes probar el primer prototipo desarrollado en Phaser](https://sawkhe.itch.io/gula-pt)  
+- [También podes probar el primer prototipo desarrollado en Phaser](https://sawkhe.itch.io/gula-pt)
+- [Seguinos en Twitter](https://x.com/RosemaryTeamJam)  
 
 ---
 
