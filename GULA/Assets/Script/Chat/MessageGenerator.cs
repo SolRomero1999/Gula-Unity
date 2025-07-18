@@ -10,8 +10,20 @@ public class MessageGenerator : MonoBehaviour
     private float boredomThreshold = 5f;
     private float angerThreshold = 10f;
 
+    private bool usandoMensajesBienvenida = false;
+
     void Start()
     {
+        // Determinar si es el primer tutorial
+        if (LevelManager.instance != null)
+        {
+            var nivel = LevelManager.instance.niveles[LevelManager.instance.nivelActual];
+            if (LevelManager.instance.nivelActual == 0 && nivel.esTutorial)
+            {
+                usandoMensajesBienvenida = true;
+            }
+        }
+
         StartCoroutine(RandomChatCoroutine());
     }
 
@@ -31,6 +43,9 @@ public class MessageGenerator : MonoBehaviour
 
     string GenerateMessageBasedOnState()
     {
+        if (usandoMensajesBienvenida)
+            return WelcomeMessage();
+
         bool inactivityActive = foodUIManager.InactivityIsActive();
         float inactivityTime = foodUIManager.GetInactivityTime();
 
@@ -41,6 +56,30 @@ public class MessageGenerator : MonoBehaviour
         }
 
         return StandardMessage();
+    }
+
+    string WelcomeMessage()
+    {
+        string[] messages =
+        {
+            "A new mukbang streamer? I'm in!",
+            "Looks like someone's starting their journey!",
+            "This is gonna be fun to watch!",
+            "Welcome to Gula!",
+            "First stream hype!",
+            "New streamer? Let's gooo!",
+            "Yay! Excited to be here!",
+            "I love finding new streamers!",
+            "Already a fan!",
+            "Hope they can eat a lot!",
+            "Bring on the food!",
+            "Good luck, streamer!",
+            "Let's make this viral!",
+            "I'm staying for the whole thing",
+            "Wishing you a great first stream!"
+        };
+
+        return messages[Random.Range(0, messages.Length)];
     }
 
     string StandardMessage()

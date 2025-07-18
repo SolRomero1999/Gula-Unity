@@ -15,7 +15,6 @@ public class AudienceManager : MonoBehaviour
     public int PeakViewers => peakViewers;
     public bool IsPaused { get; set; } = false;
 
-
     [Header("UI")]
     public TMP_Text goalText;
     public Image panelBackground;
@@ -31,15 +30,36 @@ public class AudienceManager : MonoBehaviour
     private float animationDuration = 0.15f;
     private float animationTimer = 0f;
     private Vector3 originalGoalScale;
+    private TutorialDialogueManager tutorialManager;
+    private bool systemReady = false;
 
     void Start()
     {
-        UpdateUI();
+        tutorialManager = FindObjectOfType<TutorialDialogueManager>();
         originalGoalScale = goalText.transform.localScale;
+
+        if (tutorialManager == null || !tutorialManager.IsTutorialActive)
+        {
+            InicializarSistema();
+            systemReady = true;
+        }
     }
 
     void Update()
     {
+        if (!systemReady)
+        {
+            if (tutorialManager != null && !tutorialManager.IsTutorialActive)
+            {
+                InicializarSistema();
+                systemReady = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
         if (IsPaused)
             return;
 
@@ -150,6 +170,7 @@ public class AudienceManager : MonoBehaviour
     }
 
     public int CurrentAudience => rating;
+
     public void ResetAudience()
     {
         rating = 100;
@@ -158,4 +179,11 @@ public class AudienceManager : MonoBehaviour
         UpdateUI();
     }
 
+    void InicializarSistema()
+    {
+        decayTimer = 0f;
+        gameOverTriggered = false;
+        isAnimating = false;
+        UpdateUI();
+    }
 }

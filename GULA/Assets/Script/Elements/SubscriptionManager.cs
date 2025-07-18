@@ -10,6 +10,7 @@ public class SubscriptionManager : MonoBehaviour
     public AudienceManager audienceManager;
     public RectTransform notificationParent;
     public GameObject subscriptionNotificationPrefab;
+    private TutorialDialogueManager tutorialManager;
 
     private List<string> subscriberNames = new List<string>();
     private HashSet<string> usedNames = new HashSet<string>();
@@ -33,6 +34,32 @@ public class SubscriptionManager : MonoBehaviour
 
     private void Start()
     {
+        tutorialManager = FindObjectOfType<TutorialDialogueManager>();
+
+        if (tutorialManager == null || !tutorialManager.IsTutorialActive)
+        {
+            StartSubscriptionRoutine();
+        }
+        else
+        {
+            StartCoroutine(WaitForTutorialToEndAndStart());
+        }
+    }
+
+    private IEnumerator WaitForTutorialToEndAndStart()
+    {
+        while (tutorialManager != null && tutorialManager.IsTutorialActive)
+        {
+            yield return null;
+        }
+        StartSubscriptionRoutine();
+    }
+
+    private void StartSubscriptionRoutine()
+    {
+        if (subscriptionCheckCoroutine != null)
+            StopCoroutine(subscriptionCheckCoroutine);
+
         subscriptionCheckCoroutine = StartCoroutine(CheckForSubscribersRoutine());
     }
 
@@ -48,6 +75,10 @@ public class SubscriptionManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(1f);
+
+            if (tutorialManager != null && tutorialManager.IsTutorialActive)
+                continue;
+
             int viewers = audienceManager.CurrentAudience;
             if (viewers <= 0) continue;
 
@@ -58,6 +89,7 @@ public class SubscriptionManager : MonoBehaviour
                 AddSubscriber();
         }
     }
+
 
     public void AddSubscriber()
     {

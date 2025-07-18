@@ -18,6 +18,7 @@ public class TutorialDialogueManager : MonoBehaviour
     private int index = 0;
     private Coroutine typingCoroutine;
     private bool isTyping = false;
+    public bool IsTutorialActive => panelDialogo != null && panelDialogo.activeSelf;
 
     void Start()
     {
@@ -94,7 +95,10 @@ public class TutorialDialogueManager : MonoBehaviour
 
         AudienceManager audienceManager = FindObjectOfType<AudienceManager>();
         if (audienceManager != null)
+        {
             audienceManager.IsPaused = false;
+            audienceManager.ResetAudience();
+        }
 
         GameTimer timer = FindObjectOfType<GameTimer>();
         if (timer != null)

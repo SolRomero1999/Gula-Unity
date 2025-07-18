@@ -15,12 +15,39 @@ public class DonationManager : MonoBehaviour
     private bool isShowingNotification = false;
     private float notificationOffset = 0f;
 
+    private TutorialDialogueManager tutorialManager;
     private Coroutine donationCheckCoroutine;
     private int totalDonations = 0;
     public int TotalDonations => totalDonations;
 
     void Start()
     {
+        tutorialManager = FindObjectOfType<TutorialDialogueManager>();
+
+        if (tutorialManager == null || !tutorialManager.IsTutorialActive)
+        {
+            StartDonationRoutine();
+        }
+        else
+        {
+            StartCoroutine(WaitForTutorialToEndAndStart());
+        }
+    }
+
+    private IEnumerator WaitForTutorialToEndAndStart()
+    {
+        while (tutorialManager != null && tutorialManager.IsTutorialActive)
+        {
+            yield return null;
+        }
+        StartDonationRoutine();
+    }
+
+    private void StartDonationRoutine()
+    {
+        if (donationCheckCoroutine != null)
+            StopCoroutine(donationCheckCoroutine);
+
         donationCheckCoroutine = StartCoroutine(CheckForDonationsRoutine());
     }
 
@@ -30,10 +57,13 @@ public class DonationManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
+            if (tutorialManager != null && tutorialManager.IsTutorialActive)
+                continue;
+
             int subs = subscriptionManager.Subscribers;
             if (subs <= 0) continue;
 
-            float chancePerSub = Random.Range(0.01f, 0.05f); 
+            float chancePerSub = Random.Range(0.01f, 0.05f);
             float totalChance = Mathf.Min(0.5f, subs * chancePerSub);
 
             if (Random.value < totalChance)
@@ -43,6 +73,9 @@ public class DonationManager : MonoBehaviour
 
     void GenerateDonation()
     {
+        if (tutorialManager != null && tutorialManager.IsTutorialActive)
+            return;
+
         string donorName = subscriptionManager.GetRandomUsedSubscriber();
         if (string.IsNullOrEmpty(donorName)) return;
 

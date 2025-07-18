@@ -32,6 +32,7 @@ public class FoodUIManager : MonoBehaviour
     public AudienceManager audienceManager;
     public StreamerVisualManager streamerVisual;
     public MoneyManager moneyManager;
+    private TutorialDialogueManager tutorialManager;
 
     [Header("Penalties")]
     public float inactivityThreshold = 3f;
@@ -57,22 +58,36 @@ public class FoodUIManager : MonoBehaviour
     bool gameOverTriggered = false;
 
     Color originalAudienceTextColor;
+    private bool systemReady = false;
 
     void Start()
     {
-        UpdateRamenSprite();
-        UpdateSushiSprite();
-        AddClickListener(ramenImage.gameObject, OnClickRamen);
-        AddClickListener(sushiImage.gameObject, OnClickSushi);
-        currentStomach = 0f;
-        UpdateStomachBar();
-        lastEatTime = Time.time;
-        if (audienceManager != null && audienceManager.goalText != null)
-            originalAudienceTextColor = audienceManager.goalText.color;
+        tutorialManager = FindObjectOfType<TutorialDialogueManager>();
+        if (tutorialManager == null || !tutorialManager.IsTutorialActive)
+        {
+            InicializarSistema();
+            systemReady = true;
+        }
     }
 
     void Update()
     {
+        if (!systemReady)
+        {
+            if (tutorialManager != null && !tutorialManager.IsTutorialActive)
+            {
+                InicializarSistema();
+                systemReady = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        if (audienceManager != null && audienceManager.IsPaused)
+            return;
+
         float timeSinceLastEat = Time.time - lastEatTime;
 
         if (timeSinceLastEat > inactivityThreshold)
@@ -165,6 +180,19 @@ public class FoodUIManager : MonoBehaviour
         }
     }
 
+    void InicializarSistema()
+    {
+        UpdateRamenSprite();
+        UpdateSushiSprite();
+        AddClickListener(ramenImage.gameObject, OnClickRamen);
+        AddClickListener(sushiImage.gameObject, OnClickSushi);
+        currentStomach = 0f;
+        UpdateStomachBar();
+        lastEatTime = Time.time;
+        if (audienceManager != null && audienceManager.goalText != null)
+            originalAudienceTextColor = audienceManager.goalText.color;
+    }
+
     void ApplyAudiencePenalty(int loss)
     {
         if (gameOverTriggered) return;
@@ -196,6 +224,9 @@ public class FoodUIManager : MonoBehaviour
 
     void OnClickRamen()
     {
+        if (tutorialManager != null && tutorialManager.IsTutorialActive)
+        return;
+
         if (currentBowlLevel < maxBowlLevel)
         {
             currentBowlLevel++;
@@ -213,6 +244,9 @@ public class FoodUIManager : MonoBehaviour
 
     void OnClickSushi()
     {
+        if (tutorialManager != null && tutorialManager.IsTutorialActive)
+        return;
+
         if (currentSushiLevel < maxSushiLevel)
         {
             currentSushiLevel++;
@@ -282,5 +316,4 @@ public class FoodUIManager : MonoBehaviour
         UpdateStomachBar();
         streamerVisual?.UpdateVisual(currentStomach, stomachCapacity);
     }
-
 }

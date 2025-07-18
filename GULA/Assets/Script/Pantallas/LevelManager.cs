@@ -25,6 +25,9 @@ public class LevelManager : MonoBehaviour
     [Header("Nivel actual (solo lectura)")]
     public int nivelActual = 0;
 
+    [Header("Referencia al TutorialDialogueManager")]
+    [SerializeField] private TutorialDialogueManager tutorialManager;
+
     private Coroutine nivelCoroutine;
 
     void Awake()
@@ -39,6 +42,7 @@ public class LevelManager : MonoBehaviour
     {
         IniciarNivel();
     }
+
     public void IniciarNivel()
     {
         if (nivelActual >= niveles.Length)
@@ -64,12 +68,11 @@ public class LevelManager : MonoBehaviour
         {
             if (niveles[nivelActual].esTutorial)
             {
-                audienceManager.IsPaused = true; 
+                audienceManager.IsPaused = true;
             }
             else
             {
-                audienceManager.IsPaused = false; 
-                audienceManager.ResetAudience();
+                audienceManager.IsPaused = false;
             }
         }
 
@@ -83,13 +86,26 @@ public class LevelManager : MonoBehaviour
             timer.ResetTimer(niveles[nivelActual].duracion);
 
             if (!niveles[nivelActual].esTutorial)
-                timer.StartTimerManual(); 
+                timer.StartTimerManual();
         }
     }
 
     private IEnumerator TemporizadorNivel(float duracion)
     {
-        yield return new WaitForSeconds(duracion);
+        float timer = 0f;
+
+        while (timer < duracion)
+        {
+            if (tutorialManager != null && tutorialManager.IsTutorialActive)
+            {
+                yield return null; 
+                continue;
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
         MostrarPanelCalendario();
     }
 
@@ -109,5 +125,4 @@ public class LevelManager : MonoBehaviour
     {
         MostrarPanelCalendario();
     }
-
 }

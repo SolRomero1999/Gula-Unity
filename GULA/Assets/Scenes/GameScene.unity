@@ -2249,7 +2249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   niveles:
   - nombre: Tutorial
-    duracion: 10
+    duracion: 30
     platillosDisponibles:
     - {fileID: 997916052}
     esTutorial: 1
@@ -2262,15 +2262,18 @@ MonoBehaviour:
     - And if you spend too much time without eating, they'll get bored and start
       leaving
     - 'The secret is simple: maintain balance'
+    - And you won't be alone
+    - The chat will be with you
+    - Shall we do a quick test?
   - nombre: 1
-    duracion: 20
+    duracion: 60
     platillosDisponibles:
     - {fileID: 997916052}
-    - {fileID: 368838749}
     esTutorial: 0
     lineasTutorial: []
   panelCalendario: {fileID: 1871169293}
   nivelActual: 0
+  tutorialManager: {fileID: 1547700231}
 --- !u!4 &1002648079
 Transform:
   m_ObjectHideFlags: 0
@@ -3425,7 +3428,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 290.6, y: 13.929}
+  m_AnchoredPosition: {x: 300, y: 13.929}
   m_SizeDelta: {x: 252.8152, y: 490.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1508236124
